@@ -1,7 +1,19 @@
-# Vue 3 + Vite
+## 运行方法
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+```shell
+pnpm install
+npm run dev
+```
 
-## Recommended IDE Setup
+## 开发说明
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+背景图片位于public文件夹，若需要增加背景图片，按照0-7.jpg的格式更名后放在该文件夹下即可。
+
+## 功能说明
+
+使用css技术实现的简易的桌面图标高亮显示方案，鼠标光标在桌面甩动时，可实现图标的旋转+高亮，达到增强可见性的效果。
+
+
+
+By 陈诺
+
