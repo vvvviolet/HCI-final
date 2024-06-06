@@ -1,5 +1,5 @@
 <template>
-  <div id="canvas" class="container" :style="backgroundStyle">
+  <div id="bg" ref="bg" class="container" :style="backgroundStyle">
     <div class="control-group">
       <button class="btn" @click="onChangeBg(-1)">
         < </button>
@@ -7,10 +7,13 @@
             <h3>更换背景</h3>
           </div>
           <button class="btn" @click="onChangeBg(1)">></button>
+          <button class="btn" :style="btnRtateStyle"  @click="setRotate">旋转</button>
+          <button class="btn" :style="btnShadowStyle" @click="setShadow">阴影</button>
+          <button class="btn" :style="btnFrameStyle" @click="setFrame">边框</button>
     </div>
     <div class="icon-group">
-      <div class="icon-wrapper" :style="iconStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716192057581" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716192057581" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1450" width="200" height="200">
           <path d="M908 836H116A36 36 0 0 1 80 800V296h864V800a36 36 0 0 1-36 36z" fill="#4D4D4D" p-id="1451"></path>
           <path
@@ -43,8 +46,8 @@
         </svg>
         <span>Terminal</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716192082164" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716192082164" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1618" width="200" height="200">
           <path
             d="M590.4 536s185.6-104 188.8-102.4a270.448 270.448 0 0 0-328-195.2 266.192 266.192 0 0 0-158.4 113.6c1.6 0 297.6 184 297.6 184z"
@@ -61,8 +64,8 @@
         </svg>
         <span>OneDrive</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716192112352" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716192112352" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1778" width="200" height="200">
           <path
             d="M944 508v8A381.168 381.168 0 0 1 564 896h-8a378.4 378.4 0 0 1-268.64-112c-5.12-5.12-10.24-10.56-15.04-16-4.64-5.12-9.12-10.56-13.44-16A376.96 376.96 0 0 1 176 516v-8A376 376 0 0 1 246.88 288a189.328 189.328 0 0 1 12-16 379.264 379.264 0 0 1 297.12-144h8A381.168 381.168 0 0 1 944 508z"
@@ -91,8 +94,8 @@
         </svg>
         <span>Powerpoint</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716192117600" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716192117600" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1943" width="200" height="200">
           <path
             d="M896 896H309.312A37.312 37.312 0 0 1 272 858.688V165.312A37.312 37.312 0 0 1 309.312 128h597.376a37.184 37.184 0 0 1 37.152 37.312L944 848a58.16 58.16 0 0 1-48 48z"
@@ -118,8 +121,8 @@
         </svg>
         <span>OneNote</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716192144494" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716192144494" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2275" width="200" height="200">
           <path
             d="M906.672 128H309.328A37.328 37.328 0 0 0 272 165.328V320l352 80 320-80v-154.672A37.328 37.328 0 0 0 906.672 128z"
@@ -147,8 +150,8 @@
         </svg>
         Word
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716192178849" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716192178849" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2601" width="200" height="200">
           <path d="M572.8 579.2h156.8l179.2 49.6 108.8-219.2-299.2-248-145.6 417.6z" fill="#07C3F2" p-id="2602"></path>
           <path d="M438.4 0L62.4 156.8 0 819.2l206.4-22.4 147.2-62.4 4.8-105.6L416 323.2 668.8 152 438.4 0z"
@@ -164,8 +167,8 @@
         </svg>
         <span>Pycharm</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716195536121" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716195536121" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="3815" width="200" height="200">
           <path
             d="M918.673 883H104.327C82.578 883 65 867.368 65 848.027V276.973C65 257.632 82.578 242 104.327 242h814.346C940.422 242 958 257.632 958 276.973v571.054C958 867.28 940.323 883 918.673 883z"
@@ -179,8 +182,8 @@
         </svg>
         <span>文件夹</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959550788" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959550788" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2758" width="200" height="200">
           <path d="M608 128H308.8C289.6 128 272 144 272 163.2V320l336 262.4L944 512V320L608 128z" fill="#21A366"
             p-id="2759"></path>
@@ -206,8 +209,8 @@
         </svg>
         <span>Excel</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959528327" class="icon" viewBox="0 0 1288 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959528327" class="icon" :style="iconStyle" viewBox="0 0 1288 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2593" width="200" height="200">
           <path
             d="M1221.738005 241.016455h-1004.590711A102.165382 102.165382 0 0 0 118.607823 319.933347L1.298929 945.722974A65.266403 65.266403 0 0 0 69.764666 1023.786711h1013.975421a97.899604 97.899604 0 0 0 93.207249-78.063737L1286.364541 319.933347a63.986669 63.986669 0 0 0-64.626536-78.916892z"
@@ -238,8 +241,8 @@
         </svg>
         <span>Powershell</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959479990" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959479990" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2267" width="200" height="200">
           <path d="M272 616v208c0 57.44 150.432 104 336 104s336-46.56 336-104v-208z" fill="#881421" p-id="2268"></path>
           <path d="M272 408v208c0 57.44 150.432 104 336 104s336-46.56 336-104v-208z" fill="#AF2031" p-id="2269"></path>
@@ -263,8 +266,8 @@
         </svg>
         <span>Access</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959503651" class="icon" viewBox="0 0 1029 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959503651" class="icon" :style="iconStyle" viewBox="0 0 1029 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2433" width="200" height="200">
           <path
             d="M166.187235 790.834764l-17.583636 15.010421a42.886918 42.886918 0 0 1-44.38796 6.433038l-77.839756-31.950754A42.886918 42.886918 0 0 1 0.000429 740.871505V283.268092a42.886918 42.886918 0 0 1 26.375454-39.455964l77.839756-31.950754a42.886918 42.886918 0 0 1 44.38796 7.076341l17.583636 15.010422a23.587805 23.587805 0 0 0-33.022926 5.575299 21.443459 21.443459 0 0 0-4.503127 13.08051v518.931705a23.802239 23.802239 0 0 0 23.80224 23.802239 24.445543 24.445543 0 0 0 13.723813-4.503126z"
@@ -281,8 +284,8 @@
         </svg>
         <span>VS2024</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959461736" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959461736" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2107" width="200" height="200">
           <path
             d="M923.69886 761.758375a328.212997 328.212997 0 0 1-41.986312 18.793873 408.90669 408.90669 0 0 1-143.553199 25.991526c-189.138338 0-353.884628-129.957632-353.884629-297.10314a125.479092 125.479092 0 0 1 65.578621-109.16441c-171.144204 7.197653-215.129864 185.539511-215.129865 289.905486 0 295.503661 272.311222 325.493884 331.092059 325.493884 31.589701 0 79.174188-9.197002 107.964802-18.394003l5.198305-1.599479a511.833134 511.833134 0 0 0 266.313178-211.131168 15.994785 15.994785 0 0 0-4.798436-21.99283 16.834512 16.834512 0 0 0-16.794524-0.799739z"
@@ -299,8 +302,8 @@
         </svg>
         <span>Edge</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959433342" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959433342" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1939" width="200" height="200">
           <path d="M384 0l-59.2 443.2 68.8-28.8L622.4 129.6 384 0z" fill="#FF318C" p-id="1940"></path>
           <path d="M384 0l-59.2 443.2 68.8-28.8L622.4 129.6 384 0z" fill="#04A1DB" p-id="1941"></path>
@@ -321,8 +324,8 @@
         </svg>
         <span>Clion</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959417063" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959417063" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1776" width="200" height="200">
           <path d="M11.2 603.2l248 195.2L488 512 134.4 374.4 11.2 603.2z" fill="#FC801D" p-id="1777"></path>
           <path d="M544 208l168 433.6 312-368L705.6 16 544 208z" fill="#535ADD" p-id="1778"></path>
@@ -336,8 +339,8 @@
         </svg>
         <span>Idea</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959386185" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959386185" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1614" width="200" height="200">
           <path d="M174.4 0L0 196.8l544 278.4 35.2-252.8-48-145.6L174.4 0z" fill="#FF318C" p-id="1615"></path>
           <path d="M97.6 784l312-3.2v-176l-11.2-304L0 196.8 97.6 784z" fill="#6F56FF" p-id="1616"></path>
@@ -352,8 +355,8 @@
         </svg>
         <span>Phpstorm</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959361912" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959361912" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1450" width="200" height="200">
           <path d="M0 107.2l137.6 817.6L704 1024 878.4 137.6 568 17.6l-150.4 80L256 1.6 0 107.2z" fill="#07C3F2"
             p-id="1451"></path>
@@ -371,8 +374,8 @@
         </svg>
         <span>Webstorm</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959598601" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959598601" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2925" width="200" height="200">
           <path d="M72.335145 72.335145h879.509202v879.509202h-879.509202z" fill="#D8D8DB" p-id="2926"></path>
           <path d="M35.647046 112.200245L911.817704 35.557301l76.642945 876.152708-876.152709 76.642945z" fill="#D8D8DB"
@@ -387,8 +390,8 @@
         </svg>
         <span>Typora</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959690836" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959690836" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="3086" width="200" height="200">
           <path
             d="M768 128H256a128 128 0 0 0-128 128v512a128 128 0 0 0 128 128h512a128 128 0 0 0 128-128V256a128 128 0 0 0-128-128z"
@@ -402,8 +405,8 @@
         </svg>
         <span>Au</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716959981473" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716959981473" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="3354" width="200" height="200">
           <path
             d="M123.648 178.346667C361.642667-98.602667 802.986667-43.946667 967.936 279.68h-396.501333c-71.424 0-117.546667-1.621333-167.509334 24.661333-58.709333 30.933333-102.997333 88.234667-118.485333 155.52L123.648 178.389333z"
@@ -420,8 +423,8 @@
         </svg>
         <span>Chrome</span>
       </div>
-      <div class="icon-wrapper" :style="iconStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
-        <svg t="1716960047081" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      <div class="icon-wrapper" :style="iconWrapperStyle"  :class="{ 'bordered': isBordered, 'shaky': isShaky }">
+        <svg t="1716960047081" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="1344" width="200" height="200">
           <path
             d="M729.2092 494.944408c-16.291756-0.554431-31.986432 0.426486-46.614894 2.729509 4.094263-32.455567 17.827105-72.374634 66.403834-70.71134C802.863292 428.796465 810.369442 478.524706 810.540036 512.217081c-22.689043-9.937118-50.751806-16.206459-81.330836-17.272673m186.033091-316.452438c-7.634095-40.814688-31.815838-60.987464-53.694557-68.834803-23.584663-8.572364-71.436366-17.485916-131.528211-24.56558-48.363486-5.714909-105.214038-5.245775-139.546142-4.222209-4.136912-28.318655-23.883203-54.163692-46.060463-63.119893-59.02563-23.883203-150.250935-18.125645-173.622355-11.515116-18.594779 5.160478-39.23669 15.907919-50.709158 32.37027-7.676744 11.003333-12.623979 25.16266-12.666627 44.823653 0 11.173927 0.341189 37.44545 0.59708 60.774222 0.255891 23.456717 0.59708 44.35452 0.59708 44.525114a37.829287 37.829287 0 0 1-37.74399 37.871936H175.204191c-20.428668 0-36.038047 3.411886-47.937 8.828255-11.941601 5.501666-20.38602 12.794573-26.825955 21.494883-12.794573 17.230025-14.96965 38.469016-14.927002 60.134493 0 0 0.213243 17.784456 4.478101 52.031263 3.539832 26.570063 32.199675 212.048723 59.452116 268.47279 10.534198 21.921368 17.571214 31.090812 38.298421 40.72939 46.231057 19.916885 151.828933 42.008848 201.301282 48.320838 49.472349 6.354638 80.435215 19.703642 98.944697-19.19186 0.042649-0.127946 3.667778-9.723875 8.657661-23.755257 16.078513-48.789972 18.338888-92.120925 18.338888-123.424981 0-3.198643 4.606046-3.326589 4.606047 0 0 22.091963-4.179561 100.394749 54.718123 121.420498 23.243474 8.273824 71.479014 15.652028 120.482229 21.409585 44.35452 5.117829 76.511546 22.603746 76.511546 136.773985 0 69.474531-14.500516 78.985164-90.500279 78.985164-61.584545 0-85.041262 1.620646-85.041262-47.510514 0-39.663176 39.108745-35.526264 68.067129-35.526264 12.965167 0 3.58248-9.638578 3.58248-34.16151 0-24.352337 15.140245-38.426367 0.852972-38.810205-100.266803-2.772157-159.249785-0.127946-159.249785 125.728004 0 114.255537 43.544197 135.451879 185.777199 135.451879 111.568676 0 150.848015-3.667778 196.908478-147.137589 9.084147-28.318655 31.133461-114.724671 44.482465-259.815129 8.444418-91.737088-7.932635-368.654296-20.940451-438.555312m-724.215478 20.386019h87.003096a9.084147 9.084147 0 0 0 8.99885-9.084147s-1.023566-75.232089-1.023566-96.129891V93.408059c0-17.187376 3.539832-32.157027 9.809172-44.695708L298.757117 43.082739c-0.341189 0-0.682377 0.213243-1.023566 0.511783L128.80254 212.696128A1.961835 1.961835 0 0 0 128.162811 213.677045c3.497183-1.748592 8.273824-4.136912 8.956201-4.392803 14.713759-6.738475 32.540864-10.406253 53.907801-10.406253"
@@ -429,8 +432,8 @@
         </svg>
         <span>Evernote</span>
       </div>
-      <div class="icon-wrapper"  :class="{ 'bordered': isBordered, 'shaky': isShaky }"   :style="iconStyle">
-        <svg t="1716960211734" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1491" width="200" height="200"><path d="M546.986667 1024H56.490667A56.533333 56.533333 0 0 1 0 967.466667V56.533333C0 25.301333 25.301333 0 56.533333 0h910.933334C998.698667 0 1024 25.301333 1024 56.533333v910.933334c0 31.232-25.301333 56.533333-56.533333 56.533333H706.56v-396.544h133.12l19.882667-154.538667H706.56V374.186667c0-44.714667 12.373333-75.221333 76.586667-75.221334h81.834666v-138.24c-14.165333-1.92-62.72-6.101333-119.253333-6.101333-118.016 0-198.784 72.021333-198.784 204.288v113.92H413.525333v154.581333h133.418667V1024z" fill="#3B5998" p-id="1492"></path></svg>
+      <div class="icon-wrapper"  :class="{ 'bordered': isBordered, 'shaky': isShaky }"   :style="iconWrapperStyle">
+        <svg t="1716960211734" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1491" width="200" height="200"><path d="M546.986667 1024H56.490667A56.533333 56.533333 0 0 1 0 967.466667V56.533333C0 25.301333 25.301333 0 56.533333 0h910.933334C998.698667 0 1024 25.301333 1024 56.533333v910.933334c0 31.232-25.301333 56.533333-56.533333 56.533333H706.56v-396.544h133.12l19.882667-154.538667H706.56V374.186667c0-44.714667 12.373333-75.221333 76.586667-75.221334h81.834666v-138.24c-14.165333-1.92-62.72-6.101333-119.253333-6.101333-118.016 0-198.784 72.021333-198.784 204.288v113.92H413.525333v154.581333h133.418667V1024z" fill="#3B5998" p-id="1492"></path></svg>
         <span>Facebook</span>
       </div>
     </div>
@@ -438,7 +441,7 @@
 
 </template>
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 const currentImageIndex = ref(0);
 const backgroundStyle = computed(() => {
   return {
@@ -450,11 +453,14 @@ const backgroundStyle = computed(() => {
 
   }
 });
-const iconStyle = ref({
+const iconWrapperStyle = ref({
   // transform: "scale(1.2) rotate(360deg)"
 })
+const iconStyle = ref({
+
+})
 const onChangeBg = (idx) => {
-  console.log(currentImageIndex.value);
+  // console.log(currentImageIndex.value);
   currentImageIndex.value += idx;
   if (currentImageIndex.value > 10) {
     currentImageIndex.value = 0
@@ -471,14 +477,14 @@ function toggleBorderAndShake() {
   }, 820); // 抖动动画的持续时间，根据实际情况调整
 }
 onMounted(() => {
-  const canvas = document.getElementById('canvas');
+  const bg = document.getElementById('bg');
   let lastX = 0;
   let lastY = 0;
   let lastTime = 0;
   const flingThreshold = 150; // 阈值，根据需要调整
   const timeLimit = 10; // 时间限制，单位毫秒
-
-  canvas.addEventListener('mousemove', function (event) {
+  setRotate()
+  bg.addEventListener('mousemove', function (event) {
     const currentTime = new Date().getTime();
     const deltaX = event.clientX - lastX;
     const deltaY = event.clientY - lastY;
@@ -488,18 +494,26 @@ onMounted(() => {
       if (distance > flingThreshold) {
         // alert('Mouse fling detected!');
         // 这里可以触发你的“甩动”事件处理逻辑
-        toggleBorderAndShake()
-        // iconStyle.value = {
-        //   transform: "rotate(360deg)",
-        //   boxShadow: "0 0 20px 11px rgba(255, 255, 255, 0.7)",
-        //   backgroundColor: "rgba(255, 255, 255, 0.7)"
-        // }
+        // toggleBorderAndShake()
+        if(options.value == "rotate"){
+          iconWrapperStyle.value = {
+          transform: "rotate(360deg)",
+          boxShadow: "0 0 20px 11px rgba(255, 255, 255, 0.7)",
+          backgroundColor: "rgba(255, 255, 255, 0.7)"
+        }
 
-        // setTimeout(() => {
-        //   iconStyle.value = {
-        //     transform: "rotate(-360deg)"
-        //   }
-        // }, 1000)
+        setTimeout(() => {
+          iconWrapperStyle.value = {
+            transform: "rotate(-360deg)"
+          }
+        }, 1000)
+        }
+        // else if(options.value == "frame"){
+        //   // alert("边框")
+        // }else if(options.value == "shadow"){
+        //   // alert("阴影")
+        // }
+       
       }
     }
 
@@ -507,10 +521,57 @@ onMounted(() => {
     lastY = event.clientY;
     lastTime = currentTime;
   });
+
+  
+
 })
 const isBordered = ref(false);
 const isShaky = ref(false);
+const btnRtateStyle = ref({
+  backgroundColor: "#fff"
+})
+const btnFrameStyle = ref({
+  backgroundColor: "#fff"
+})
+const btnShadowStyle = ref({
+  backgroundColor: "#fff"
+})
+// frame, rotate, shadow
+const options = ref("rotate")
+const setFrame = ()=>{
+  options.value = "frame"
+  btnFrameStyle.value.backgroundColor = "#ccc"
+  btnRtateStyle.value.backgroundColor = "#fff"
+  btnShadowStyle.value.backgroundColor = "#fff"
+  unsetShadow()
+  // 设置边框样式
+  iconWrapperStyle.value['boxShadow']="5px 5px 10px 0 rgba(0, 0, 0, 0.3)"
+  // console.log(iconWrapperStyle.value);
+}
+const setShadow = ()=>{
+  options.value = "shadow"
+  btnFrameStyle.value.backgroundColor = "#fff"
+  btnRtateStyle.value.backgroundColor = "#fff"
+  btnShadowStyle.value.backgroundColor = "#ccc"
+  unsetFrame()
+  iconStyle.value['boxShadow']="5px 5px 10px 0 rgba(0, 0, 0, 0.5)"
+  // 设置阴影样式
+  iconWrapperStyle.value['']=""
+}
+const unsetFrame = ()=>{
+  iconWrapperStyle.value['boxShadow']=""
+}
+const unsetShadow = ()=>{
+  iconStyle.value['boxShadow']=""
+}
+const setRotate = ()=>{
+  options.value = "rotate"
+  unsetShadow()
+  btnFrameStyle.value.backgroundColor = "#fff"
+  btnRtateStyle.value.backgroundColor = "#ccc"
+  btnShadowStyle.value.backgroundColor = "#fff"
 
+}
 </script>
 
 
@@ -535,7 +596,6 @@ const isShaky = ref(false);
   cursor: pointer;
   /* 显示指针手势 */
   transition: transform 0.5s ease;
-  border-radius: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -545,7 +605,6 @@ const isShaky = ref(false);
   margin-bottom: 20px;
   margin-left: 15px;
   padding: 9px;
-  transition: border 0.3s ease;
 
   
 }
