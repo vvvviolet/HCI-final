@@ -550,8 +550,11 @@ const setFrame = () => {
   btnShadowStyle.value.backgroundColor = "#fff"
   unsetShadow()
   // 设置边框样式
-  iconWrapperStyle.value['border'] = "2px solid black"
-  // console.log(iconWrapperStyle.value);
+  if (bgType[currentImageIndex.value] == 0) {
+      iconWrapperStyle.value['border'] = "1px solid black"
+    } else if (bgType[currentImageIndex.value] == 1) {
+      iconWrapperStyle.value['border'] = "1px solid white"
+    }
 }
 const setShadow = () => {
   options.value = "shadow"
@@ -564,8 +567,6 @@ const setShadow = () => {
   } else if (bgType[currentImageIndex.value] == 1) {
     iconStyle.value['boxShadow'] = "5px 5px 10px 0 rgba(255, 255, 255, 0.7)"
   }
-  // 设置阴影样式
-  iconWrapperStyle.value[''] = ""
 }
 watch(currentImageIndex, () => {
   console.log(options.value);
@@ -574,6 +575,13 @@ watch(currentImageIndex, () => {
       iconStyle.value['boxShadow'] = "5px 5px 10px 0 rgba(0, 0, 0, 0.7)"
     } else if (bgType[currentImageIndex.value] == 1) {
       iconStyle.value['boxShadow'] = "5px 5px 10px 0 rgba(255, 255, 255, 0.7)"
+    }
+  }
+  if (options.value == "frame") {
+    if (bgType[currentImageIndex.value] == 0) {
+      iconWrapperStyle.value['border'] = "1px solid black"
+    } else if (bgType[currentImageIndex.value] == 1) {
+      iconWrapperStyle.value['border'] = "1px solid white"
     }
   }
 })
