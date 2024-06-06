@@ -7,6 +7,7 @@
             <h3>更换背景</h3>
           </div>
           <button class="btn" @click="onChangeBg(1)">></button>
+          <button class="btn" :style="btnShakeStyle" @click="setShake">抖动</button>
           <button class="btn" :style="btnRtateStyle" @click="setRotate">旋转</button>
           <button class="btn" :style="btnShadowStyle" @click="setShadow">阴影</button>
           <button class="btn" :style="btnFrameStyle" @click="setFrame">边框</button>
@@ -518,10 +519,12 @@ onMounted(() => {
         // }else if(options.value == "shadow"){
         //   // alert("阴影")
         // }
+        else if (options.value == "shake"){
+          toggleBorderAndShake()
+        }
 
       }
     }
-
     lastX = event.clientX;
     lastY = event.clientY;
     lastTime = currentTime;
@@ -541,6 +544,9 @@ const btnFrameStyle = ref({
 const btnShadowStyle = ref({
   backgroundColor: "#fff"
 })
+const btnShakeStyle = ref({
+  backgroundColor: "#fff"
+})
 // frame, rotate, shadow
 const options = ref("rotate")
 const setFrame = () => {
@@ -548,6 +554,8 @@ const setFrame = () => {
   btnFrameStyle.value.backgroundColor = "#ccc"
   btnRtateStyle.value.backgroundColor = "#fff"
   btnShadowStyle.value.backgroundColor = "#fff"
+  btnShakeStyle.value.backgroundColor = "#ccc"
+
   unsetShadow()
   // 设置边框样式
   if (bgType[currentImageIndex.value] == 0) {
@@ -561,6 +569,8 @@ const setShadow = () => {
   btnFrameStyle.value.backgroundColor = "#fff"
   btnRtateStyle.value.backgroundColor = "#fff"
   btnShadowStyle.value.backgroundColor = "#ccc"
+  btnShakeStyle.value.backgroundColor = "#ccc"
+
   unsetFrame()
   if (bgType[currentImageIndex.value] == 0) {
     iconStyle.value['boxShadow'] = "5px 5px 10px 0 rgba(0, 0, 0, 0.7)"
@@ -595,9 +605,25 @@ const setRotate = () => {
   options.value = "rotate"
   unsetShadow()
   unsetFrame()
+  
   btnFrameStyle.value.backgroundColor = "#fff"
   btnRtateStyle.value.backgroundColor = "#ccc"
   btnShadowStyle.value.backgroundColor = "#fff"
+  btnShakeStyle.value.backgroundColor = "#fff"
+
+}
+
+const setShake = ()=>{
+  unsetShadow()
+  unsetFrame()
+   
+  btnFrameStyle.value.backgroundColor = "#fff"
+  btnRtateStyle.value.backgroundColor = "#fff"
+  btnShadowStyle.value.backgroundColor = "#fff"
+  btnShakeStyle.value.backgroundColor = "#ccc"
+
+  options.value = "shake"
+
 
 }
 </script>
