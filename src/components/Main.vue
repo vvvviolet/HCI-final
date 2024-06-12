@@ -120,7 +120,7 @@
             d="M186.704 390.672h50.608l99.44 160.928q6.8 10.832 10.192 17.44h0.64a246.992 246.992 0 0 1-1.44-33.008v-145.36h43.152v242.656h-47.36L238.752 468a129.792 129.792 0 0 1-9.216-17.088h-0.8a354.336 354.336 0 0 1 1.28 36.208v146.208H186.72z"
             fill="#FFFFFF" p-id="1953"></path>
         </svg>
-        <span>OneNote</span>
+        <!-- <span>OneNote</span> -->
       </div>
       <div class="icon-wrapper" :style="iconWrapperStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
         <svg t="1716192144494" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1"
@@ -166,7 +166,7 @@
             d="M256 752h240v-40H256V752zM359.68 409.12A41.12 41.12 0 0 0 405.44 368c0-26.88-17.92-41.12-46.88-41.12h-44.8v83.04zM256 272h107.36c62.72 0 100.64 38.4 100.64 94.08v0.8c0 62.88-47.2 96-106.24 96h-44V544H256z m227.04 136.96a134.72 134.72 0 0 1 138.4-137.12 136.48 136.48 0 0 1 104.48 40.96l-37.12 42.88a97.92 97.92 0 0 0-67.84-29.92A78.56 78.56 0 0 0 544 407.52a78.56 78.56 0 0 0 76.8 83.36 96 96 0 0 0 69.76-31.04l37.12 37.6a135.84 135.84 0 0 1-108.8 48 134.08 134.08 0 0 1-136-136.48"
             fill="#FFFFFF" p-id="2608"></path>
         </svg>
-        <span>Pycharm</span>
+        <!-- <span>Pycharm</span> -->
       </div>
       <div class="icon-wrapper" :style="iconWrapperStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
         <svg t="1716195536121" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1"
@@ -181,7 +181,7 @@
             d="M918.673 883H104.327C82.578 883 65 865.42 65 843.668V335.332C65 313.58 82.578 296 104.327 296h814.346C940.422 296 958 313.58 958 335.332v508.336C958 865.32 940.323 883 918.673 883z"
             fill="#fee300" p-id="3818"></path>
         </svg>
-        <span>文件夹</span>
+        <!-- <span>文件夹</span> -->
       </div>
       <div class="icon-wrapper" :style="iconWrapperStyle" :class="{ 'bordered': isBordered, 'shaky': isShaky }">
         <svg t="1716959550788" class="icon" :style="iconStyle" viewBox="0 0 1024 1024" version="1.1"
